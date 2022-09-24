@@ -19,7 +19,7 @@ EOF
 
   tags = merge(
     var.extra_tags,
-    map("Name", format("%s-%s-fargate-role", var.environment, var.app_name)),
+    tomap({"Name"=format("%s-%s-fargate-role", var.environment, var.app_name)}),
   )
 }
 

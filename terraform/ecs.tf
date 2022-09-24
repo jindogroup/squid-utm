@@ -6,7 +6,7 @@ resource "aws_ecs_cluster" "main" {
 
   tags = merge(
     var.extra_tags,
-    map("Name", "${var.environment}-${var.app_name}"),
+    tomap({"Name"="${var.environment}-${var.app_name}"}),
   )
 }
 
@@ -20,7 +20,7 @@ resource "aws_cloudwatch_log_group" "cwlog" {
 
   tags = merge(
     var.extra_tags,
-    map("Name",  format("%s-%s", var.environment, var.app_name)),
+    tomap({"Name"= format("%s-%s", var.environment, var.app_name)}),
   )
 }
 
@@ -69,7 +69,7 @@ resource "aws_ecs_task_definition" "squid" {
       {
         "protocol": "tcp",
         "containerPort": ${var.app_port},
-        "hostPort": ${var.app_port}        
+        "hostPort": ${var.app_port}
       }
     ],
     "mountPoints" : [],
@@ -86,7 +86,7 @@ EOF
   task_role_arn = aws_iam_role.ecs_execution_role.arn
   tags = merge(
     var.extra_tags,
-    map("Name",  format("%s-%s-task", var.environment, var.app_name)),
+    tomap({"Name"= format("%s-%s-task", var.environment, var.app_name)}),
   )
 }
 

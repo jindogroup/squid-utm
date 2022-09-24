@@ -13,7 +13,7 @@ resource "aws_lb" "main" {
 
   tags = "${merge(
     var.extra_tags,
-    map("Name", format("%s-%s-nlb", var.environment, var.app_name)),
+    tomap({"Name"=format("%s-%s-nlb", var.environment, var.app_name)}),
   )}"
 }
 
@@ -47,6 +47,6 @@ resource "aws_lb_target_group" "main" {
 
   tags = "${merge(
     var.extra_tags,
-    map("Name", format("%s-%s-tg", var.environment, var.app_name)),
+    tomap({"Name"= format("%s-%s-tg", var.environment, var.app_name)}),
   )}"
 }
