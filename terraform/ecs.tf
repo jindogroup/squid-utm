@@ -106,7 +106,7 @@ resource "aws_ecs_service" "service" {
   network_configuration {
     subnets = var.fargate_subnets
     security_groups = [aws_security_group.fargate.id]
-    assign_public_ip = true
+    assign_public_ip = var.internal
   }
 
   depends_on = [

@@ -1,6 +1,10 @@
 # locals {
 #   target_subnets = "${var.internal == true ? data.aws_subnet_ids.private.ids : data.aws_subnet_ids.public.ids}"
 # }
+data "aws_vpc" "selected" {
+  id = var.vpc_id
+}
+
 
 resource "aws_lb" "main" {
   name               = format("%s-%s", var.environment, var.app_name)
